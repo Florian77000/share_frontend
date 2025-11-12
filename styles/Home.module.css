@@ -1,22 +1,56 @@
-.main {
+.add {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 4rem 0;
+  margin: 20px;
+  gap: 10px;
 }
 
-.title {
-  line-height: 1.15;
-  font-size: 4rem;
+.reqBody, .btn {
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid rgb(219, 219, 219);
+  width: 100%;
 }
 
-.title a {
-  color: #0070f3;
+.btn {
+  background-color: rgb(69, 167, 197);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.radio {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: start;
+}
+
+.recette {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardText {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardTitle {
+  font-weight: bold;
+}
+
+.cardType {
+  color: blue;
+}
+
+.cardLink {
   text-decoration: none;
-}
-
-.title a:hover, .title a:focus, .title a:active {
-  text-decoration: underline;
 }
