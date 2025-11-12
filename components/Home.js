@@ -22,7 +22,7 @@ export default function Home() {
   const [message, setMessage] = useState ('')
 
   const fetchRecette = () => {
-    fetch('http://localhost:3000/recette')
+    fetch('portfolio-backend-tau-gold.vercel.app/recette')
     .then((res) => res.json())
     .then((data)=> {
       setRecette(data.data)
@@ -39,7 +39,7 @@ export default function Home() {
       alert ('Champs manquants');
       return
     } else {
-      fetch ('http://localhost:3000/recette/add', {
+      fetch ('portfolio-backend-tau-gold.vercel.app/recette/add', {
         method:'POST',
         headers:{"content-type":"application/json"},
         body : JSON.stringify({
