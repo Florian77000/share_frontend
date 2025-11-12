@@ -22,7 +22,7 @@ export default function Home() {
   const [message, setMessage] = useState ('')
 
   const fetchRecette = () => {
-    fetch('share-backend-omega.vercel.app/recette')
+    fetch('https://share-backend-omega.vercel.app/recette')
     .then((res) => res.json())
     .then((data)=> {
       setRecette(data.data)
@@ -39,7 +39,7 @@ export default function Home() {
       alert ('Champs manquants');
       return
     } else {
-      fetch ('share-backend-omega.vercel.app/recette/add', {
+      fetch ('https://share-backend-omega.vercel.app/recette/add', {
         method:'POST',
         headers:{"content-type":"application/json"},
         body : JSON.stringify({
