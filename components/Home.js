@@ -51,10 +51,10 @@ export default function Home() {
       .then((res) =>res.json())
       .then((data)=> {
         if(data.result===true) {
-          setMessage ('recette ajouté')
+          setMessage ('recette ajoutée')
           fetchRecette()
         } else {
-          setMessage ('erreur')
+          setMessage ('erreur, la recette a déjà été ajouté')
         }
       })
       setTitre('')
