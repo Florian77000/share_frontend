@@ -67,7 +67,7 @@ export default function Home() {
       if (!window.confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
     return; 
   }
-    fetch(`https://share-backend-omega.vercel.app/recette/recette/${id}`, {
+    fetch(`https://share-backend-omega.vercel.app/recette/delete/${id}`, {
       method : 'DELETE'
     })
     .then (res => res.json())
