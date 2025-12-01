@@ -8,6 +8,8 @@ export default function Home() {
   const [search, setSearch] = useState(""); //filtre par mot clé
   const [result, setResult] = useState([]); // afficher tout au départ
   const [filterType, setFilterType] = useState('')
+  const [editMode, setEditMode] = useState(false);
+
 
   const typeOptions = [
   { value: "", label: "Choisir un type" },
@@ -108,6 +110,9 @@ export default function Home() {
                         ))}
             </select>
           <button className={styles.btn} onClick={addRecette}>Ajouter</button>
+          <button onClick={() => setEditMode(!editMode)}>
+  {editMode ? "Terminer" : "Modifier"}
+</button>
         <p>{message}</p>
     </div>
 
@@ -143,7 +148,14 @@ export default function Home() {
               <p className={styles.cardType}>{e.type}</p>
             </div>
             <Link href={e.url}><a className={styles.cardLink} target='_blank'>Voir la recette</a></Link>
-            <button className={styles.btnDelete} onClick={() => deleteRecette(e._id)}>supprimer</button>
+            {editMode && (
+  <button 
+    className={styles.btnDelete} 
+    onClick={() => deleteRecette(e._id)}
+  >
+    Supprimer
+  </button>
+)}
             </div>
         ))}
     </div>
