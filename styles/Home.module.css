@@ -20,6 +20,13 @@
   font-weight: bold;
 }
 
+.btnDelete {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .radio {
   display: flex;
   width: 100%;

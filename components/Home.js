@@ -143,7 +143,7 @@ export default function Home() {
               <p className={styles.cardType}>{e.type}</p>
             </div>
             <Link href={e.url}><a className={styles.cardLink} target='_blank'>Voir la recette</a></Link>
-            <button onClick={() => deleteRecette(e._id)}>supprimer</button>
+            <button className={styles.btnDelete} onClick={() => deleteRecette(e._id)}>supprimer</button>
             </div>
         ))}
     </div>
