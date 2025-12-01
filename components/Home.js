@@ -63,6 +63,22 @@ export default function Home() {
     }
   }
 
+  const deleteRecette = (id) => {
+      if (!window.confirm("Êtes-vous sûr de vouloir supprimer cette recette ?")) {
+    return; 
+  }
+    fetch(`https://share-backend-omega.vercel.app/recette/recette/${id}`, {
+      method : 'DELETE'
+    })
+    .then (res => res.json())
+    .then(data => {
+      if(data.result) {
+        fetchRecette();
+      }
+      
+    })
+  }
+
    useEffect(() => {
     let filtered = recette;
     // recherche mot
@@ -127,6 +143,7 @@ export default function Home() {
               <p className={styles.cardType}>{e.type}</p>
             </div>
             <Link href={e.url}><a className={styles.cardLink} target='_blank'>Voir la recette</a></Link>
+            <button onClick={() => deleteRecette(e._id)}>supprimer</button>
             </div>
         ))}
     </div>
