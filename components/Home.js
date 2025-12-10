@@ -2,17 +2,24 @@ import styles from '../styles/Home.module.css';
 import { useState, useEffect } from 'react';
 import Link from 'next/link'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+
+
 export default function Home() {
 
   const [recette, setRecette] = useState ([])
   const [search, setSearch] = useState(""); //filtre par mot clé
   const [result, setResult] = useState([]); // afficher tout au départ
   const [filterType, setFilterType] = useState('')
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(false); //pour gerer le modale de modification
+  const [editTitre, setEditTitre] = useState("");
+  const [editId, setEditId] = useState(null);
 
 
   const typeOptions = [
   { value: "", label: "Choisir un type" },
+  { value: "petit déj", label: "petit déj" },
   { value: "entrée", label: "entrée" },
   { value: "plat", label: "plat" },
   { value: "dessert", label: "dessert" },
@@ -81,6 +88,22 @@ export default function Home() {
     })
   }
 
+  const updateRecette = (id) => {
+    fetch(`https://share-backend-omega.vercel.app/recette/update/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ titre: editTitre })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.result) {
+        fetchRecette();   // recharge les données
+        setEditId(null);  // ← ferme le mode édition
+        setEditTitre(""); // ← vide le champ
+      }
+    });
+      }
+
    useEffect(() => {
     let filtered = recette;
     // recherche mot
@@ -111,8 +134,8 @@ export default function Home() {
             </select>
           <button className={styles.btn} onClick={addRecette}>Ajouter</button>
           <button onClick={() => setEditMode(!editMode)}>
-  {editMode ? "Terminer" : "Modifier"}
-</button>
+            {editMode ? "Terminer" : "Modifier"}
+          </button>
         <p>{message}</p>
     </div>
 
@@ -148,15 +171,32 @@ export default function Home() {
               <p className={styles.cardType}>{e.type}</p>
             </div>
             <Link href={e.url}><a className={styles.cardLink} target='_blank'>Voir la recette</a></Link>
+
             {editMode && (
-  <button 
-    className={styles.btnDelete} 
-    onClick={() => deleteRecette(e._id)}
-  >
-    Supprimer
-  </button>
-)}
-            </div>
+              <>
+              {editId !==e._id && (
+                <button className={styles.btnUpdate} onClick={() => {
+                  setEditId(e._id);
+                  setEditTitre(e.titre);
+                }}><FontAwesomeIcon icon={faPen} /></button>
+              )}
+              {editId === e._id && (
+                <>
+                <input className={styles.reqBody} value={(editTitre)} onChange={(ev) => setEditTitre(ev.target.value)} />
+                <button className={styles.btnValid} onClick={() =>updateRecette(e._id)}>Valider</button>
+                </>
+              )}
+
+
+            <button 
+              className={styles.btnDelete} 
+              onClick={() => deleteRecette(e._id)}
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+            </>
+            )}
+          </div>
         ))}
     </div>
     </div>
